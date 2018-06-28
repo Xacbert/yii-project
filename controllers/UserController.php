@@ -38,9 +38,9 @@ class UserController extends Controller{
             ->where(['user' => $user])
             ->one();
 
-        $aUsers = ArrayHelper::toArray($users);
+        if (sizeof($users)==1){
+            $aUsers = ArrayHelper::toArray($users);
 
-        if (sizeof($aUsers)==1){
             if ($aUsers["pwd"]==hash("sha256",$pwd)){
                 $res=array('success'=>true);
             }else{

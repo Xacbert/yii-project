@@ -33,9 +33,8 @@ $(document).on("submit", '#UserLoginFrm', function(event) {
             if (data.success){
                 alert("OK");
             }else{
-                alert("KO");
+                $("#ModalYii").modal("show");
             }
-
         }
     });
 

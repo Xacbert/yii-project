@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\bootstrap\Modal;
 
 $this->title = 'My Yii Application';
 ?>
@@ -36,7 +37,17 @@ $this->title = 'My Yii Application';
         </div>
     </div>
     <?= Html::a('Register', ['/user/register']) ?>
-
-
-
 </div>
+
+<?php
+    Modal::begin([
+        'id' => 'ModalYii',
+        'header' => '<h4 class="modal-title">Error login</h4>',
+        'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'
+    ]);
+
+    echo '<div class="text-center"><p>Wrong user or password</p></div>';
+
+    Modal::end();
+
+?>
