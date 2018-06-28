@@ -3,10 +3,11 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Usuario;
+use app\models\Usuarios;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 
 class UserController extends Controller{
@@ -32,12 +33,15 @@ class UserController extends Controller{
         $user   =isset($data["user"])   ? $data["user"] : "";
         $pwd    =isset($data["pwd"])    ? $data["pwd"]  : "";
 
-        $users=Usuario::find()
-                ->where(['user' => $user])
-                ->one();
+        $users=Usuarios::find()
+            ->select(['pwd'])
+            ->where(['user' => $user])
+            ->one();
 
-        if (sizeof($users)==1){
-            if ($users[0]->pwd==hash("sha256",$pwd)){
+        $aUsers = ArrayHelper::toArray($users);
+
+        if (sizeof($aUsers)==1){
+            if ($aUsers["pwd"]==hash("sha256",$pwd)){
                 $res=array('success'=>true);
             }else{
                 $res=array('success'=>false);
@@ -51,7 +55,7 @@ class UserController extends Controller{
 
 
     public function actionView(){
-        $query = Usuario::find();
+        $query = Usuarios::find();
 
         $users=$query->all();
 
@@ -69,7 +73,7 @@ class UserController extends Controller{
     public function actionCreate(){
         $data=Yii::$app->request->post();
 
-        $usuario = new Usuario();
+        $usuario = new Usuarios();
         $usuario->user  =$data["user"];
         $usuario->pwd   =hash("sha256",$data["pwd"]);
 

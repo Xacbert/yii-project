@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
-class Usuario extends ActiveRecord{
+class Usuarios extends ActiveRecord{
 
     public function rules(){
         return [
