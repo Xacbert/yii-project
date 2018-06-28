@@ -22,6 +22,8 @@ $(document).on("submit", '#UserCreateFrm', function(event) {
 $(document).on("submit", '#UserLoginFrm', function(event) {
     event.preventDefault();
 
+    var UrlView = $(this).attr("data-url-view");
+
     $.ajax({
         type: "POST",
         url: $(this).attr('action'),
@@ -31,7 +33,7 @@ $(document).on("submit", '#UserLoginFrm', function(event) {
         success: function (data) {
 
             if (data.success){
-                alert("OK");
+                window.open(UrlView,"_self");
             }else{
                 $("#ModalYii").modal("show");
             }

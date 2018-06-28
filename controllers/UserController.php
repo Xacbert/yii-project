@@ -59,7 +59,7 @@ class UserController extends Controller{
 
         $users=$query->all();
 
-        return $this->render('list', [
+        return $this->render('view', [
             'users' => $users
         ]);
     }

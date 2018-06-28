@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
 $this->title = 'My Yii Application';
@@ -12,7 +13,7 @@ $this->title = 'My Yii Application';
             <div class="panel panel-default">
                 <div class="panel-heading">LOGIN</div>
                 <div class="panel-body">
-                    <?= Html::beginForm(['user/login', null], 'post', ['class' => 'form-horizontal', 'id'=>'UserLoginFrm']) ?>
+                    <?= Html::beginForm(['user/login', null], 'post', ['class' => 'form-horizontal', 'id'=>'UserLoginFrm','data-url-view'=>Url::toRoute(['/user/view'])]) ?>
                     <div class="form-group">
                         <label for="inputUser" class="col-sm-2 control-label">User</label>
                         <div class="col-sm-10">
