@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 
 
 class UserController extends Controller{
+    protected $session =null;
 
     public function behaviors(){
         return [
@@ -24,6 +25,18 @@ class UserController extends Controller{
                 ],
             ],
         ];
+    }
+
+    public function beforeAction($action){
+        switch ($action->id){
+            case "login":
+            case "logout":
+            case "view":
+                $this->session = Yii::$app->session;
+                break;
+        }
+
+        return parent::beforeAction($action);
     }
 
 
@@ -42,6 +55,8 @@ class UserController extends Controller{
             $aUsers = ArrayHelper::toArray($users);
 
             if ($aUsers["pwd"]==hash("sha256",$pwd)){
+                $this->session->set('user',$user);
+
                 $res=array('success'=>true);
             }else{
                 $res=array('success'=>false);
@@ -54,14 +69,26 @@ class UserController extends Controller{
     }
 
 
+    public function actionLogout(){
+        $this->session->remove('user');
+
+        $this->redirect(array('site/'));
+    }
+
+
     public function actionView(){
-        $query = Usuarios::find();
+        if ($this->session->has('user')){
 
-        $users=$query->all();
+            $query = Usuarios::find();
 
-        return $this->render('view', [
-            'users' => $users
-        ]);
+            $users=$query->all();
+
+            return $this->render('view', [
+                'users' => $users
+            ]);
+        }else{
+            $this->redirect(array('site/'));
+        }
     }
 
 

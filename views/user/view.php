@@ -1,5 +1,11 @@
 
+<?php
 
+    use yii\helpers\Html;
+
+
+    $this->title = 'View';
+?>
 
 <h1>Usuarios</h1>
 <ul>
@@ -9,3 +15,5 @@
         </li>
     <?php endforeach; ?>
 </ul>
+
+<?= Html::a('Logut', ['/user/logout']) ?>
